@@ -22,3 +22,6 @@ Route::get('/store', 'HomeController@store')->name('store');
 
 
 Route::get('/products', 'ProductController@index')->name('product.index');
+
+
+Route::get('/addToCart/{product}', 'ProductController@addToCart')->name('cart.add');

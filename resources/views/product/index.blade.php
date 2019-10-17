@@ -18,7 +18,7 @@
                                 <h5 class="card-title">{{ $product->title }}</h5>
                                 <p class="card-text">Sld on thd make up the bulk of the card's content.</p>
                                 <p><strong> $ {{ $product->price }}</strong></p>
-                                <a href="#" class="btn btn-primary"> Buy</a>
+                                <a href="{{ route('cart.add',$product)}}" class="btn btn-primary"> Buy</a>
                             </div>
                     </div>
                     
