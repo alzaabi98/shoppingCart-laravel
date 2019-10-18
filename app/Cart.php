@@ -8,7 +8,7 @@ class Cart
     public $totalQty ;
     public $totalPrice;
 
-    public function __Constrcut($cart = null) {
+    public function __Construct($cart = null) {
         if($cart) {
             $this->items = $cart->items;
             $this->totalQty = $cart->totalQty;
