@@ -43,7 +43,7 @@
                         <li class="nav-item">
                         <a href="#" class="nav-link">
                             <span class="fas fa-shopping-cart">
-                                My Cart (0)
+                                My Cart ( {{ session()->has('cart') ? session()->get('cart')->totalQty : '0' }})
                             </span>
                         </a>
                         </li>

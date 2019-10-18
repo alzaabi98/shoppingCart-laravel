@@ -8,12 +8,14 @@ class Cart
     public $totalQty ;
     public $totalPrice;
 
-    public function __Constrcut($cart = null) {
+    public function __Construct($cart = null) {
         if($cart) {
+            
             $this->items = $cart->items;
             $this->totalQty = $cart->totalQty;
             $this->totalPrice = $cart->totalPrice;
         } else {
+            
             $this->items = [];
             $this->totalQty = 0;
             $this->totalPrice = 0;
@@ -21,7 +23,6 @@ class Cart
     }
 
     public function add($product) {
-        
         $item = [
             'title' => $product->title,
             'price' => $product->price,
@@ -33,12 +34,15 @@ class Cart
             $this->items[$product->id] = $item ;
             $this->totalQty +=1;
             $this->totalPrice += $product->price; 
+            
         } else {
+            
             $this->totalQty +=1 ;
             $this->totalPrice += $product->price; 
         }
-
+        
         $this->items[$product->id]['qty']  += 1 ;
+        
     }
 
 

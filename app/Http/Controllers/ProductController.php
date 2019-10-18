@@ -93,6 +93,8 @@ class ProductController extends Controller
             $cart = new Cart();
         }
         $cart->add($product);
-        dd($cart);
+        //dd($cart);
+        session()->put('cart', $cart);
+        return redirect()->route('product.index')->with('success', 'Product was added');
     }
 }
