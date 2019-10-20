@@ -39,7 +39,7 @@
                         <p>
                         Total Quantities is {{$cart->totalQty}}
                         </p>
-                        <a href="#" class="btn btn-info">Chekout</a>
+                        <a href="{{ route('cart.checkout', $cart->totalPrice)}}" class="btn btn-info">Checkout</a>
                     </div>
                 </div>
             </div>
