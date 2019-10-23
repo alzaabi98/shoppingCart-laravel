@@ -28,6 +28,6 @@ Route::get('/addToCart/{product}', 'ProductController@addToCart')->name('cart.ad
 Route::get('/shopping-cart', 'ProductController@showCart')->name('cart.show');
 
 
-Route::get('/checkout/{amount}', 'ProductController@checkout')->name('cart.checkout');
+Route::get('/checkout/{amount}', 'ProductController@checkout')->name('cart.checkout')->middleware('auth');
 
 Route::post('/charge', 'ProductController@charge')->name('cart.charge');
