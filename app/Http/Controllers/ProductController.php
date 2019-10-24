@@ -129,6 +129,10 @@ class ProductController extends Controller
 
         if ($chargeId) {
             // save order in orders table ...
+            
+            auth()->user()->orders()->create([
+                'cart' => serialize( session()->get('cart'))
+            ]);
             // clearn cart 
 
             session()->forget('cart');  
