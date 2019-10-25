@@ -31,3 +31,5 @@ Route::get('/shopping-cart', 'ProductController@showCart')->name('cart.show');
 Route::get('/checkout/{amount}', 'ProductController@checkout')->name('cart.checkout')->middleware('auth');
 
 Route::post('/charge', 'ProductController@charge')->name('cart.charge');
+
+Route::get('/orders', 'OrderController@index')->name('order.index');
