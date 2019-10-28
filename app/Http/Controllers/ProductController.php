@@ -83,7 +83,17 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $cart = new Cart( session()->get('cart'));
+        $cart->remove($product->id);
+
+        if( $cart->totalQty <= 0 ) {
+            session()->forget('cart');
+        } else {
+            session()->put('cart', $cart);
+        }
+
+        return redirect()->route('cart.show')->with('success', 'Product was removed');
+
     }
 
     public function addToCart(Product $product) {

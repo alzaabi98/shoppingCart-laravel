@@ -14,9 +14,17 @@
                                     </h5>
                                     <div class="card-text">
                                         ${{ $product['price'] }}
-                                        <a href="#" class="btn btn-danger btn-sm ml-4">Remove</a>
+                                        
                                         <input type="text" name="qty" id="qty" value={{ $product['qty']}}>
                                         <a href="#" class="btn btn-secondary btn-sm">Change</a>  
+
+                                        <form action="{{ route('product.remove', $product['id'] )}}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger btn-sm ml-4 float-right" style="margin-top: -30px;">Remove</button>
+                                                
+
+                                        </form>
                                     </div>
                                 </div>
                             </div>
