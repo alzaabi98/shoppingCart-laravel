@@ -23,6 +23,8 @@ Route::get('/store', 'HomeController@store')->name('store');
 
 Route::get('/products', 'ProductController@index')->name('product.index');
 Route::delete('/products/{product}', 'ProductController@destroy')->name('product.remove');
+Route::put('/products/{product}', 'ProductController@update')->name('product.update');
+
 
 Route::get('/addToCart/{product}', 'ProductController@addToCart')->name('cart.add');
 Route::get('/shopping-cart', 'ProductController@showCart')->name('cart.show');

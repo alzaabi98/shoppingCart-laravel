@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('product.index',compact('products'));
+        return view('product.index', compact('products'));
     }
 
     /**
@@ -72,7 +72,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $request->validate([
+            'qty' => 'required|numeric|min:1'
+        ]);
+
+        $cart = new Cart(session()->get('cart'));
+        $cart->updateQty($product->id, $request->qty);
+        session()->put('cart', $cart);
+        return redirect()->route('cart.show')->with('success', 'Product updated');
     }
 
     /**
@@ -83,21 +90,21 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $cart = new Cart( session()->get('cart'));
+        $cart = new Cart(session()->get('cart'));
         $cart->remove($product->id);
 
-        if( $cart->totalQty <= 0 ) {
+        if ($cart->totalQty <= 0) {
             session()->forget('cart');
         } else {
             session()->put('cart', $cart);
         }
 
         return redirect()->route('cart.show')->with('success', 'Product was removed');
-
     }
 
-    public function addToCart(Product $product) {
-        
+    public function addToCart(Product $product)
+    {
+
         if (session()->has('cart')) {
             $cart = new Cart(session()->get('cart'));
         } else {
@@ -109,7 +116,8 @@ class ProductController extends Controller
         return redirect()->route('product.index')->with('success', 'Product was added');
     }
 
-    public function showCart() {
+    public function showCart()
+    {
 
         if (session()->has('cart')) {
             $cart = new Cart(session()->get('cart'));
@@ -120,12 +128,14 @@ class ProductController extends Controller
         return view('cart.show', compact('cart'));
     }
 
-    public function checkout($amount) {
-    
-            return view('cart.checkout',compact('amount'));
+    public function checkout($amount)
+    {
+
+        return view('cart.checkout', compact('amount'));
     }
 
-    public function charge(Request $request) {
+    public function charge(Request $request)
+    {
 
         //dd($request->stripeToken);
         $charge = Stripe::charges()->create([
@@ -139,13 +149,13 @@ class ProductController extends Controller
 
         if ($chargeId) {
             // save order in orders table ...
-            
+
             auth()->user()->orders()->create([
-                'cart' => serialize( session()->get('cart'))
+                'cart' => serialize(session()->get('cart'))
             ]);
             // clearn cart 
 
-            session()->forget('cart');  
+            session()->forget('cart');
             return redirect()->route('store')->with('success', " Payment was done. Thanks");
         } else {
             return redirect()->back();
